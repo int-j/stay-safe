@@ -7,7 +7,18 @@
 </head>
 <body>
 
-<a href="javascript:void(0);" onclick="alert('SSB{yawedi_ya_l9raya}');">Click here for a flag</a>
+<a href="javascript:void(0);" onclick="checkPhishing();">Click here for a flag</a>
+
+<script>
+function checkPhishing() {
+    var phishing = confirm("Was that like a phishing email?\n\nChoose 'OK' for Yes, or 'Cancel' for No.");
+    if (phishing) {
+        alert("Flag is SSB{bravo}");
+    } else {
+        alert("SSB{yawedi_ya_l9raya}");
+    }
+}
+</script>
 
 </body>
 </html>
