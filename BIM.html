@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CTF Training: Phishing Red Flags</title>
+
+  <!-- CTF FLAG (hidden in source):
+       SSB{dima_fakar_mzn_9bal_matclicki}
+  -->
+
+  <!-- Optional hidden flag in metadata:
+       <meta name="ctf-flag" content="SSB{metadata}" />
+  -->
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #0b1020;
+      color: #e8ecff;
+      margin: 0;
+      padding: 24px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #111a33;
+      border: 1px solid #23305a;
+      border-radius: 12px;
+      padding: 22px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    }
+    h1 { margin-top: 0; }
+    .email {
+      background: #0e1530;
+      border: 1px dashed #3a4a88;
+      padding: 16px;
+      border-radius: 10px;
+      margin: 18px 0;
+      line-height: 1.5;
+    }
+    .field {
+      display: flex;
+      gap: 10px;
+      margin: 6px 0;
+      font-size: 14px;
+    }
+    .label { color: #9fb2ff; width: 85px; }
+    .value { color: #ffffff; }
+    .warning {
+      margin-top: 14px;
+      padding: 14px;
+      background: rgba(255, 92, 92, 0.12);
+      border: 1px solid rgba(255, 92, 92, 0.35);
+      border-radius: 10px;
+    }
+    .ok {
+      margin-top: 14px;
+      padding: 14px;
+      background: rgba(84, 255, 141, 0.10);
+      border: 1px solid rgba(84, 255, 141, 0.25);
+      border-radius: 10px;
+    }
+    code {
+      background: rgba(255,255,255,0.07);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: #2a4cff;
+      color: white;
+      text-decoration: none;
+      margin-top: 10px;
+      border: 1px solid #3c5cff;
+      cursor: pointer;
+    }
+    .btn:hover { background: #2342e6; }
+    .btn.secondary {
+      background: #ff3b6b;
+      border-color: #ff5a83;
+    }
+    .btn.secondary:hover { background: #e6325f; }
+    .small { font-size: 13px; color: #b9c6ff; }
+    .hint {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #cdd6ff;
+      opacity: 0.9;
+    }
+  </style>
+
+  <script>
+    // Educational only — no data collection, no external requests.
+
+    function showClickFlag() {
+      alert("🎯 Flag found!\nSSB{yawdi_yal9raya_yaawdi}");
+    }
+
+    function fakeClaim() {
+      alert("yaaaak almaardi");
+    }
+  </script>
+</head>
+
+<body>
+  <div class="container">
+    <h1>CTF Practice: Spot the Phishing 🕵️‍♀️</h1>
+    <p class="small">
+      Challenge: This page contains multiple <strong>CTF flags</strong> hidden in different ways.
+      Find them by analyzing common phishing red flags.
+    </p>
+
+    <div class="email" aria-label="Fake phishing email example">
+      <div class="field"><span class="label">From:</span> <span class="value">BIM Maroc &lt;bim-giveaway@promo-bim-win.net&gt;</span></div>
+      <div class="field"><span class="label">Subject:</span> <span class="value">🎉 BIG SALE + Free GAMING Laptop Giveaway!</span></div>
+
+      <hr style="border:0;border-top:1px solid #243062;margin:14px 0;" />
+
+      <p>Hi student 👋</p>
+      <p>
+        Next Friday, BIM has <strong>70% OFF</strong> and a <strong>FREE Gaming Laptop</strong> giveaway!
+        You must confirm your account <strong>today</strong> to be eligible.
+      </p>
+      <p>
+        Click here now: <code>http://bim-maroc-offre-gratuite.win/claim</code>
+      </p>
+
+      <!-- Fake phishing CTA (safe: doesn't go anywhere) -->
+      <button class="btn" type="button" onclick="fakeClaim()">
+        Claim Now
+      </button>
+
+      <p class="small" style="margin-top:12px;">
+        To confirm identity, reply with your phone number + national ID.
+      </p>
+
+      <p class="hint">
+        🔎 CTF Hint: Some flags are in the <strong>page source</strong>. Others show up when you <strong>click</strong>.
+      </p>
+
+      <!-- NEW: click-to-reveal flag button -->
+      <button class="btn secondary" type="button" onclick="showClickFlag()">
+        🎁 Click for “Gift Verification”
+      </button>
+    </div>
+
+    <div class="warning">
+      <h2>🚩 Phishing Red Flags in this Email</h2>
+      <ul>
+        <li><strong>Weird sender domain:</strong> <code>promo-bim-win.net</code> (not official)</li>
+        <li><strong>Urgency pressure:</strong> “today” / “must confirm now”</li>
+        <li><strong>Too-good-to-be-true:</strong> 70% OFF + free gaming laptop</li>
+        <li><strong>Suspicious link:</strong> <code>.win</code> domain + <code>http</code> (not https)</li>
+        <li><strong>Requests sensitive data:</strong> ID number, phone, etc.</li>
+      </ul>
+    </div>
+
+    <div class="ok">
+      <h2>✅ Safe Student Tips</h2>
+      <ul>
+        <li>Go directly to the official website (type it yourself).</li>
+        <li>Check the sender domain carefully.</li>
+        <li>Never share sensitive info by email.</li>
+        <li>When in doubt, ask a teacher/admin or report it.</li>
+      </ul>
+      <p class="small">
+        Hint: In CTFs, flags are often hidden in <strong>HTML comments</strong>, <strong>meta tags</strong>, or via <strong>Inspect Element</strong>.
+      </p>
+    </div>
+
+    <!-- Another classic beginner hiding spot:
+         FLAG{had_lapage_katkhabi_details_mohimin}
+    -->
+  </div>
+</body>
+</html>
