@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stay Safe — Digital Safety Mission for Moroccan Youth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0f0f;
+    --bg-2: #0d1414;
+    --surface: #121b1b;
+    --surface-2: #182322;
+    --line: #223130;
+    --text: #eaf5f2;
+    --muted: #82a19a;
+    --red: #ff3d3d;
+    --red-dim: #4a1616;
+    --orange: #ff9d2e;
+    --orange-dim: #4a3312;
+    --green: #2fe6a4;
+    --green-dim: #123d2e;
+    --mono: 'JetBrains Mono', monospace;
+    --disp: 'Sora', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(255,61,61,.08), transparent 60%),
+      radial-gradient(ellipse 900px 500px at 85% 15%, rgba(47,230,164,.08), transparent 60%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--disp);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--green); color:#08110f; }
+  a{ color:inherit; }
+  img,svg{ display:block; }
+
+  .wrap{ max-width:920px; margin:0 auto; padding:0 24px; }
+  .eyebrow{ font-family:var(--mono); font-size:13px; color:var(--muted); letter-spacing:.02em; }
+
+  /* focus visibility */
+  a:focus-visible, button:focus-visible, summary:focus-visible{
+    outline:2px solid var(--green); outline-offset:3px; border-radius:4px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:40;
+    background:rgba(10,15,15,.85); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:920px; margin:0 auto; padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; font-family:var(--mono); font-weight:600; font-size:15px; }
+  .brand .dot{ width:9px; height:9px; border-radius:50%; background:var(--green); box-shadow:0 0 10px var(--green); }
+  .nav-links{ display:flex; gap:22px; font-family:var(--mono); font-size:13px; color:var(--muted); }
+  .nav-links a{ text-decoration:none; }
+  .nav-links a:hover{ color:var(--text); }
+  @media (max-width:640px){ .nav-links{ display:none; } }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding:88px 0 64px; text-align:center; }
+  .signal{
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+    width:64px; margin:0 auto 34px; padding:14px 12px;
+    background:var(--surface); border:1px solid var(--line); border-radius:14px;
+  }
+  .signal .lamp{
+    width:32px; height:32px; border-radius:50%;
+    background:#1c2726;
+    transition:background .5s ease, box-shadow .5s ease;
+  }
+  .signal .lamp.r.on{ background:var(--red); box-shadow:0 0 22px 4px rgba(255,61,61,.55); }
+  .signal .lamp.o.on{ background:var(--orange); box-shadow:0 0 22px 4px rgba(255,157,46,.5); }
+  .signal .lamp.g.on{ background:var(--green); box-shadow:0 0 22px 4px rgba(47,230,164,.55); }
+
+  .signal-tag{
+    font-family:var(--mono); font-weight:700; font-size:15px; letter-spacing:.03em;
+    color:var(--text); margin-bottom:14px;
+  }
+  .signal-tag span{ color:var(--red); }
+  .signal-tag em{
+    display:block; font-style:normal; font-weight:400; font-size:11.5px;
+    color:var(--muted); letter-spacing:0; margin-top:4px;
+  }
+
+  .status-line{
+    font-family:var(--mono); font-size:13px; color:var(--green);
+    min-height:18px; margin-bottom:22px;
+  }
+  .status-line .cursor{ display:inline-block; width:7px; height:14px; background:var(--green); margin-left:2px; vertical-align:-2px; animation:blink 1s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  h1{
+    font-size:clamp(34px, 6vw, 58px); font-weight:800; letter-spacing:-.02em;
+    line-height:1.05; max-width:760px; margin:0 auto 20px;
+  }
+  h1 .hl-red{ color:var(--red); }
+  h1 .hl-green{ color:var(--green); }
+
+  .lede{ max-width:560px; margin:0 auto 34px; color:var(--muted); font-size:17px; }
+
+  .cta-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:14px; font-weight:600; text-decoration:none;
+    padding:13px 24px; border-radius:8px; border:1px solid transparent; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{ transform:translateY(-1px); }
+  .btn.primary{ background:var(--green); color:#07130f; box-shadow:0 0 0 rgba(47,230,164,0); }
+  .btn.primary:hover{ box-shadow:0 6px 24px rgba(47,230,164,.25); }
+  .btn.ghost{ background:transparent; border-color:var(--line); color:var(--text); }
+  .btn.ghost:hover{ border-color:var(--muted); }
+
+  .meta-row{
+    display:flex; gap:22px; justify-content:center; flex-wrap:wrap;
+    margin-top:46px; font-family:var(--mono); font-size:12.5px; color:var(--muted);
+  }
+  .meta-row span b{ color:var(--text); font-weight:600; }
+
+  /* ---------- SECTION SHELL ---------- */
+  section{ padding:74px 0; border-top:1px solid var(--line); }
+  .sec-head{ margin-bottom:36px; }
+  .sec-head h2{ font-size:clamp(24px,3.4vw,32px); font-weight:700; margin-top:8px; letter-spacing:-.01em; }
+  .sec-head p{ color:var(--muted); margin-top:10px; max-width:560px; }
+
+  /* ---------- OBJECTIVES ---------- */
+  .obj-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:14px; overflow:hidden; }
+  @media (max-width:640px){ .obj-grid{ grid-template-columns:1fr; } }
+  .obj{ background:var(--surface); padding:26px; }
+  .obj .tag{ font-family:var(--mono); font-size:11px; color:var(--green); }
+  .obj h3{ font-size:17px; margin:10px 0 8px; font-weight:600; }
+  .obj p{ font-size:14.5px; color:var(--muted); }
+
+  /* ---------- JOURNEY ---------- */
+  .journey{ position:relative; padding-left:34px; }
+  .journey::before{
+    content:""; position:absolute; left:10px; top:6px; bottom:6px; width:2px;
+    background:linear-gradient(to bottom, var(--red), var(--orange), var(--green));
+  }
+  .phase{ position:relative; margin-bottom:16px; }
+  .phase::before{
+    content:""; position:absolute; left:-34px; top:22px; width:12px; height:12px; border-radius:50%;
+    background:var(--phase-color); box-shadow:0 0 12px var(--phase-color);
+  }
+  .phase-card{
+    background:var(--surface); border:1px solid var(--line); border-radius:12px; overflow:hidden;
+  }
+  .phase summary{
+    list-style:none; cursor:pointer; padding:20px 22px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .phase summary::-webkit-details-marker{ display:none; }
+  .phase-title{ display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+  .phase-code{ font-family:var(--mono); font-size:12px; padding:3px 9px; border-radius:5px; color:var(--phase-color); background:var(--phase-dim); border:1px solid var(--phase-color); }
+  .phase-name{ font-weight:700; font-size:18px; }
+  .phase-week{ font-family:var(--mono); font-size:12px; color:var(--muted); }
+  .chev{ font-family:var(--mono); color:var(--muted); transition:transform .25s ease; flex-shrink:0; }
+  details[open] .chev{ transform:rotate(45deg); color:var(--phase-color); }
+
+  .phase-body{ padding:0 22px 24px; border-top:1px solid var(--line); }
+  .phase-body .desc{ color:var(--muted); font-size:14.5px; margin:18px 0 18px; max-width:520px; }
+  .phase-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  @media (max-width:600px){ .phase-grid{ grid-template-columns:1fr; } }
+  .phase-grid h4{ font-family:var(--mono); font-size:11.5px; color:var(--phase-color); margin-bottom:10px; letter-spacing:.02em; }
+  .phase-grid ul{ list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .phase-grid li{ font-size:14px; padding-left:18px; position:relative; }
+  .phase-grid li::before{ content:"›"; position:absolute; left:0; color:var(--phase-color); font-weight:700; }
+
+  .phase[data-phase="red"]{ --phase-color:var(--red); --phase-dim:var(--red-dim); }
+  .phase[data-phase="orange"]{ --phase-color:var(--orange); --phase-dim:var(--orange-dim); }
+  .phase[data-phase="green"]{ --phase-color:var(--green); --phase-dim:var(--green-dim); }
+
+  .journey-car{
+    position:absolute; left:10px; top:0; transform:translateX(-50%);
+    z-index:2; color:var(--red); filter:drop-shadow(0 0 6px currentColor);
+    animation:driveDown 7s ease-in-out infinite;
+  }
+  @keyframes driveDown{
+    0%   { top:0; opacity:0; color:var(--red); }
+    8%   { opacity:1; }
+    46%  { color:var(--orange); }
+    84%  { color:var(--green); top:calc(100% - 26px); opacity:1; }
+    94%  { top:calc(100% - 26px); opacity:0; }
+    100% { top:0; opacity:0; color:var(--red); }
+  }
+
+  /* ---------- FORMAT ---------- */
+  .format-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:640px){ .format-grid{ grid-template-columns:1fr; } }
+  .fmt-card{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:24px; }
+  .fmt-card .tag{ font-family:var(--mono); font-size:11px; color:var(--muted); }
+  .fmt-card h3{ font-size:18px; margin:8px 0 10px; }
+  .fmt-card p{ font-size:14.5px; color:var(--muted); }
+
+  .score-strip{
+    margin-top:18px; display:flex; gap:14px; flex-wrap:wrap;
+  }
+  .chip{
+    font-family:var(--mono); font-size:12.5px; color:var(--text);
+    border:1px solid var(--line); background:var(--surface-2);
+    padding:8px 14px; border-radius:999px; display:flex; align-items:center; gap:8px;
+  }
+  .chip .k{ color:var(--green); }
+
+  /* ---------- CTA ---------- */
+  .cta-section{ text-align:center; }
+  .cta-box{
+    background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    padding:52px 30px; position:relative; overflow:hidden;
+  }
+  .cta-box::before{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(120deg, rgba(255,61,61,.06), rgba(255,157,46,.06), rgba(47,230,164,.08));
+    pointer-events:none;
+  }
+  .cta-box h2{ font-size:clamp(24px,4vw,34px); font-weight:700; margin-bottom:12px; }
+  .cta-box p{ color:var(--muted); max-width:440px; margin:0 auto 26px; }
+
+  footer{ padding:36px 0; border-top:1px solid var(--line); }
+  .foot-inner{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; font-family:var(--mono); font-size:12px; color:var(--muted); }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="dot"></span> STAY_SAFE //MA</div>
+    <nav class="nav-links">
+      <a href="#objectives">objectives</a>
+      <a href="#journey">journey</a>
+      <a href="#format">format</a>
+      <a href="#join">join</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap" style="border-top:none;">
+    <div class="signal" aria-hidden="true">
+      <div class="lamp r" id="lampR"></div>
+      <div class="lamp o" id="lampO"></div>
+      <div class="lamp g" id="lampG"></div>
+    </div>
+    <p class="signal-tag">RAD BALK<span>!</span> <em>— "watch out", stay safe in Darija</em></p>
+    <div class="status-line" id="statusLine">&nbsp;</div>
+
+    <p class="eyebrow">A national digital safety mission · Morocco · Ages 16–20</p>
+    <h1>Stop. Learn. <span class="hl-green">Go safe online.</span></h1>
+    <p class="lede">Stay Safe is a three-week hybrid mission — on-site and online — that turns digital safety into a game. Clear each signal, unlock the next, and leave equipped to navigate the internet on your own terms.</p>
+
+    <div class="cta-row">
+      <a href="#join" class="btn primary">Start the mission</a>
+      <a href="#journey" class="btn ghost">See the 3 phases</a>
+    </div>
+
+    <div class="meta-row">
+      <span><b>3</b> weeks</span>
+      <span><b>16–20</b> years old</span>
+      <span><b>Hybrid</b> · on-site + online</span>
+      <span><b>Weekly</b> live sessions</span>
+    </div>
+  </section>
+
+  <section id="objectives" class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">// mission briefing</p>
+      <h2>Why this mission exists</h2>
+      <p>Four objectives guide every phase, every challenge, every session.</p>
+    </div>
+    <div class="obj-grid">
+      <div class="obj">
+        <span class="tag">01 · AWARENESS</span>
+        <h3>Recognize the threats</h3>
+        <p>Spot phishing, scams, fake profiles, and manipulation before they spot you.</p>
+      </div>
+      <div class="obj">
+        <span class="tag">02 · NAVIGATION</span>
+        <h3>Move through the web safely</h3>
+        <p>Build habits for secure browsing, strong passwords, and protecting personal data.</p>
+      </div>
+      <div class="obj">
+        <span class="tag">03 · SOCIAL MEDIA</span>
+        <h3>Post and share responsibly</h3>
+        <p>Understand privacy settings, digital footprint, and what's worth putting online.</p>
+      </div>
+      <div class="obj">
+        <span class="tag">04 · ENGAGEMENT</span>
+        <h3>Learn by playing</h3>
+        <p>Challenges, points, and live sessions replace lectures — safety that sticks because it's fun.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="journey">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">// the journey</p>
+        <h2>Three signals. Three weeks.</h2>
+        <p>Every phase runs one week and follows the traffic light: stop and understand the danger, prepare with the right tools, then move forward with confidence.</p>
+      </div>
+
+      <div class="journey">
+        <div class="journey-car" aria-hidden="true">
+          <svg viewBox="0 0 24 36" width="26" height="26" fill="none">
+            <rect x="3" y="2" width="18" height="30" rx="6" fill="currentColor"/>
+            <rect x="6" y="7" width="12" height="8" rx="2" fill="var(--bg)"/>
+            <circle cx="5" cy="9" r="2.3" fill="var(--bg)"/>
+            <circle cx="19" cy="9" r="2.3" fill="var(--bg)"/>
+            <circle cx="5" cy="27" r="2.3" fill="var(--bg)"/>
+            <circle cx="19" cy="27" r="2.3" fill="var(--bg)"/>
+          </svg>
+        </div>
+        <details class="phase" data-phase="red" open>
+          <div class="phase-card">
+            <summary>
+              <div class="phase-title">
+                <span class="phase-code">RED_ALERT</span>
+                <span class="phase-name">Stop & Recognize</span>
+                <span class="phase-week">Week 1</span>
+              </div>
+              <span class="chev">+</span>
+            </summary>
+            <div class="phase-body">
+              <p class="desc">The light is red because moving blindly online is dangerous. This week is about stopping, looking around, and naming the threats before doing anything else.</p>
+              <div class="phase-grid">
+                <div>
+                  <h4>FOCUS</h4>
+                  <ul>
+                    <li>Cyber threats: phishing, scams, catfishing</li>
+                    <li>Spotting manipulation and fake accounts</li>
+                    <li>Understanding your digital footprint</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>ACTIVITIES</h4>
+                  <ul>
+                    <li>Live kickoff session with real case studies</li>
+                    <li>"Spot the trap" challenge cards</li>
+                    <li>Async quiz to unlock Orange Horizon</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="phase" data-phase="orange">
+          <div class="phase-card">
+            <summary>
+              <div class="phase-title">
+                <span class="phase-code">ORANGE_HORIZON</span>
+                <span class="phase-name">Prepare & Equip</span>
+                <span class="phase-week">Week 2</span>
+              </div>
+              <span class="chev">+</span>
+            </summary>
+            <div class="phase-body">
+              <p class="desc">Orange means get ready. Now that the dangers are named, this week hands over the tools and habits to actually deal with them.</p>
+              <div class="phase-grid">
+                <div>
+                  <h4>FOCUS</h4>
+                  <ul>
+                    <li>Passwords, 2FA, and account security</li>
+                    <li>Privacy settings across social platforms</li>
+                    <li>Safe communication and reporting tools</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>ACTIVITIES</h4>
+                  <ul>
+                    <li>Live workshop: secure your accounts, live</li>
+                    <li>Hands-on lab with guided challenges</li>
+                    <li>Team leaderboard checkpoint</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+
+        <details class="phase" data-phase="green">
+          <div class="phase-card">
+            <summary>
+              <div class="phase-title">
+                <span class="phase-code">GREEN_ZONE</span>
+                <span class="phase-name">Go Forward</span>
+                <span class="phase-week">Week 3</span>
+              </div>
+              <span class="chev">+</span>
+            </summary>
+            <div class="phase-body">
+              <p class="desc">Green means go. Equipped with knowledge and tools, participants put it all together and move forward into the internet on their own terms.</p>
+              <div class="phase-grid">
+                <div>
+                  <h4>FOCUS</h4>
+                  <ul>
+                    <li>Responsible social media use</li>
+                    <li>Building a healthy online identity</li>
+                    <li>Helping others stay safe too</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4>ACTIVITIES</h4>
+                  <ul>
+                    <li>Final live session & capstone challenge</li>
+                    <li>On-site closing ceremony</li>
+                    <li>Certificates and badge reveal</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="format" class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">// how it runs</p>
+      <h2>Hybrid, gamified, weekly</h2>
+    </div>
+    <div class="format-grid">
+      <div class="fmt-card">
+        <span class="tag">SYNCHRONOUS</span>
+        <h3>One live session per week</h3>
+        <p>On-site and online participants join the same weekly session — real talks, real case studies, and a chance to ask questions live.</p>
+      </div>
+      <div class="fmt-card">
+        <span class="tag">ASYNCHRONOUS</span>
+        <h3>Challenges you unlock at your pace</h3>
+        <p>Between sessions, complete bite-sized challenges and quizzes to earn points and unlock the next phase — no fixed schedule required.</p>
+      </div>
+    </div>
+    <div class="score-strip">
+      <span class="chip"><span class="k">+PTS</span> for every challenge cleared</span>
+      <span class="chip"><span class="k">★</span> badges per phase</span>
+      <span class="chip"><span class="k">▲</span> live leaderboard</span>
+      <span class="chip"><span class="k">✓</span> certificate on completion</span>
+    </div>
+  </section>
+
+  <section id="join" class="cta-section wrap">
+    <div class="cta-box">
+      <p class="eyebrow">// access</p>
+      <h2>Ready to clear Red Alert?</h2>
+      <p>Spots are limited each cycle. Sign up to join the next Stay Safe cohort — on-site or online.</p>
+      <div class="cta-row">
+        <a href="#" class="btn primary">Register now</a>
+        <a href="#" class="btn ghost">Contact the team</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-inner">
+    <span>STAY_SAFE //MA — digital safety mission for Moroccan youth</span>
+    <span>status: <span style="color:var(--green)">green_zone_ready</span></span>
+  </div>
+</footer>
+
+<script>
+  // Orchestrated hero sequence: lights cascade red -> orange -> green, status line types out.
+  (function(){
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var lampR = document.getElementById('lampR');
+    var lampO = document.getElementById('lampO');
+    var lampG = document.getElementById('lampG');
+    var statusEl = document.getElementById('statusLine');
+
+    var messages = [
+      { text: '> scanning for threats...', delay: 0 },
+      { text: '> preparing your toolkit...', delay: 1500 },
+      { text: '> access granted. stay safe.', delay: 3000, done:true }
+    ];
+
+    function typeLine(text, cb){
+      statusEl.innerHTML = '';
+      var span = document.createElement('span');
+      statusEl.appendChild(span);
+      var cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      statusEl.appendChild(cursor);
+      var i = 0;
+      var iv = setInterval(function(){
+        span.textContent = text.slice(0, i+1);
+        i++;
+        if(i >= text.length){ clearInterval(iv); if(cb) cb(); }
+      }, 22);
+    }
+
+    if(reduce){
+      lampR.classList.add('on'); lampO.classList.add('on'); lampG.classList.add('on');
+      statusEl.textContent = '> access granted. stay safe.';
+      return;
+    }
+
+    setTimeout(function(){
+      lampR.classList.add('on');
+      typeLine(messages[0].text);
+    }, 200);
+
+    setTimeout(function(){
+      lampO.classList.add('on');
+      typeLine(messages[1].text);
+    }, 1600);
+
+    setTimeout(function(){
+      lampG.classList.add('on');
+      typeLine(messages[2].text);
+    }, 3200);
+  })();
+
+  // Only one phase open at a time, like unlocking levels.
+  document.querySelectorAll('.phase').forEach(function(details){
+    details.addEventListener('toggle', function(){
+      if(details.open){
+        document.querySelectorAll('.phase').forEach(function(other){
+          if(other !== details) other.open = false;
+        });
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
